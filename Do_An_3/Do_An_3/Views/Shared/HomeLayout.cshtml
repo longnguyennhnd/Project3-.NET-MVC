@@ -1,0 +1,440 @@
+﻿@using Do_An_3.Models;
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>UMA | Furniture & Decoration</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/Content/vendor/bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/vendor/font-awesome.css" />
+    <link rel="icon"
+          href="https://uma.vn/media/favicon/default/favicon_1_.ico"
+          type="image/x-icon" />
+    <link rel="shortcut icon"
+          href="https://uma.vn/media/favicon/default/favicon_1_.ico"
+          type="image/x-icon" />
+    <link rel="stylesheet" href="~/Content/css/animate.css" />
+    <link rel="stylesheet" href="~/Content/css/Home.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+          rel="stylesheet" />
+    <script>
+        function Muahang(id) {
+            console.log(id);
+            $.get("@Url.Action("Muahang", "Home")", { id: id }, function (data) {
+                $(".amount").html(data.soluong);
+                console.log(data.soluong);
+                $(".tongtien").html(data.tongtien);
+                console.log(data.tongtien);
+                var rows = "";
+                $.each(data.GioHang, function (i, val) {
+//                    $(".danhsachspgh").append(" <div class='sanphamgh'> \
+//<div class='sanphamgh'><img src='/Content/images/AnhCTSP/"+ val.Image + "'><div class='thongtinspgh'><p class='tenspgh'>" + val.Name + "</p><input type='number' class='soluong' value=" + val.SL + "><p class='giaspgh'>" + val.DonGia + "</p></div><a href='#' class='xoasp' onclick='DeleteProductFromCart(" + val.ID + ");'><img src='/Content/images/Homeimg/delete.png'></a></div>");
+                    var row = `<div class="sanphamgh"> <div class="sanphamgh"><img src="/Content/images/AnhCTSP/${val.Image}"><div class="thongtinspgh"><p class="tenspgh">${val.Name}</p><input type="number" class="soluong" value="${val.SL}"><p class="giaspgh">${val.DonGia}</p></div><a style="cursor: pointer" class="xoasp" onclick="DeleteProductFromCart(${val.ID});"><img src="/Content/images/Homeimg/delete.png"></a></div></div>`
+                    rows+=row
+                });
+                $(".danhsachspgh").html(rows)
+            });
+        }
+        function DeleteProductFromCart(id) {
+            $.ajax({
+                url: '@Url.Action("DeleteProductFromCart", "Home")',
+                type: "Post",
+                datatype: 'JSon',
+                data: { id: id },
+                success: function (data) {
+                    $(this).parents(".sanphamgh").remove();
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <!-- HTML CHO PHẦN KHỐI TOP -->
+    <div class="khoitop">
+        <div class="container">
+            @{ Html.RenderAction("TopMenu", "Home");}
+        </div>
+    </div>
+    <!-- HẾT HTML CHO PHẦN KHỐI TOP -->
+    <!-- HTML CHO PHẦN GIỚI THIỆU -->
+    <div class="gioithieu">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <a href="HomeVI.html" class="logo">
+                        <img src="~/Content/images/Homeimg/logovn.png" alt="" />
+                    </a>
+                </div>
+                <div class="col-sm-6">
+                    <div class="formtimkiem float-xs-right">
+                        <input type="text"
+                               autocomplete="off"
+                               placeholder="Tìm kiếm"
+                               maxlength="128"
+                               id="search" />
+                        <button class="submit">
+                            <img src="~/Content/images/Homeimg/search.png" alt="" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HẾT HTML CHO PHẦN GIỚI THIỆU -->
+    @{ Html.RenderAction("MainMenu", "Home");}
+    <!-- HTML CHO PHẦN BANNER -->
+    <div class="container">
+        <div class="toanbo-slide">
+            <div class="cacslide">
+                <ul>
+                    <li class="active">
+                        <div class="motslide">
+                            <div class="anh-banner" style="background-image: url(../../Content/images/Homeimg/banner1.jpg)"></div>
+                            <div class="slide-text sl1">
+                                <h3>Bộ tủ giá tốt</h3>
+                                <h3>Bếp nhà yêu thương</h3>
+                                <h3>Tiết kiệm 30%</h3>
+                                <h3>Chỉ từ 22.990.000 VNĐ</h3>
+                                <a href="" class="nut-muangay">Mua ngay</a>
+                            </div>
+                        </div>
+                        <!-- HẾT motslide -->
+                    </li>
+                    <li>
+                        <div class="motslide">
+                            <div class="anh-banner" style="background-image: url(../../Content/images/Homeimg/banner2.jpg)"></div>
+                            <div class="slide-text sl2">
+                                <h3>Bộ sưu tập Kosta</h3>
+                                <h3>Trang nhã và độc đáo</h3>
+                                <a href="" class="nut-muangay">Mua ngay</a>
+                            </div>
+                        </div>
+                        <!-- HẾT motslide -->
+                    </li>
+                    <li>
+                        <div class="motslide">
+                            <div class="anh-banner" style="background-image: url(../../Content/images/Homeimg/banner3.jpg)"></div>
+                            <div class="slide-text sl3">
+                                <h3>Góp 0% lãi xuất</h3>
+                                <h3>Hàng mới xài ngay</h3>
+                                <a href="" class="nut-muangay">Mua ngay</a>
+                            </div>
+                        </div>
+                        <!-- HẾT motslide -->
+                    </li>
+                    <li>
+                        <div class="motslide">
+                            <div class="anh-banner" style="background-image: url(../../Content/images/Homeimg/banner4.jpg)"></div>
+                        </div>
+                        <!-- HẾT motslide -->
+                    </li>
+                    <li>
+                        <div class="motslide">
+                            <div class="anh-banner" style="background-image: url(../../Content/images/Homeimg/banner5.jpg)"></div>
+                        </div>
+                        <!-- HẾT motslide -->
+                    </li>
+                    <li>
+                        <div class="motslide">
+                            <div class="anh-banner" style="background-image: url(../../Content/images/Homeimg/banner6.jpg)"></div>
+                        </div>
+                        <!-- HẾT motslide -->
+                    </li>
+                    <li>
+                        <div class="motslide">
+                            <div class="anh-banner" style="background-image: url(../../Content/images/Homeimg/banner7.jpg)"></div>
+                        </div>
+                        <!-- HẾT motslide -->
+                    </li>
+                </ul>
+            </div><!-- hết các slide -->
+            <!-- Nút chuyển slide -->
+            <div class="chuyenslide">
+                <ul>
+                    <li class="kichhoat"></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <!-- hết Nút chuyển slide -->
+        </div> <!-- hết toàn bộ slide -->
+    </div> <!-- hết container -->
+    <!-- HẾT HTML CHO PHẦN BANNER -->
+    <!-- HTML PHẦN CÁC SẢN PHẨM MỚI -->
+    @RenderBody()
+    <!-- HẾT HTML PHẦN CÁC SẢN PHẨM MỚI -->
+    <!-- HTML CHO PHẦN GIỎ HÀNG -->
+    <div class="giohang">
+        <p>Giỏ hàng</p>
+        <a href="#" class="cl"></a>
+        <div class="danhsachspgh">
+            @if (Session["giohang"] != null)
+            {
+                List<GioHang> gh = (List<GioHang>)Session["GioHang"];
+                foreach (GioHang item in gh)
+                {
+                    <div class="sanphamgh">
+                        <img src="/Content/images/AnhCTSP/@item.Image">
+                        <div class="thongtinspgh">
+                            <p class="tenspgh">@item.Name</p>
+                            <input type="number" class="soluong" value="@item.SL">
+                            <p class="giaspgh">@item.DonGia</p>
+                        </div>
+                        <a style="cursor: pointer" class="xoasp" onclick="DeleteProductFromCart(@item.ID)">
+                        <img src="/Content/images/Homeimg/delete.png"></a>
+                    </div>
+                }
+            }
+        </div>
+        <div class="tongcong">
+            <span>Tổng cộng</span>
+            <span class="tongtien"></span>
+        </div>
+        <a href="/Home/View_Cart" class="xemgh">Xem Giỏ Hàng</a>
+        <a href="/Home/Checkout" class="thanhtoan">Thanh Toán</a>
+    </div>
+    <!-- HẾT HTML CHO PHẦN GIỎ HÀNG -->
+    <!-- HTML PHẦN HÀNG MỚI -->
+    <div class="container pb-3">
+        <div class="row">
+            <div class="col-sm-12 text-xs-center mt-3 mb-3">
+                <h3 class="trangtri">HÀNG MỚI</h3>
+            </div>
+        </div>
+        <div class="row nhm">
+            <div class="col-sm-4 hm">
+                <a href="HÀNG MỚI/Bộ sưu tập sofa.html" class="khoi-hangmoi">
+                    <img src="~/Content/images/Homeimg/hangmoi01VI.jpg" alt="" class="img-fluid" />
+                    <h3 class="ten-hangmoi">BỘ SƯU TẬP SOFA</h3>
+                </a>
+            </div>
+            <div class="col-sm-4 hm">
+                <a href="HÀNG MỚI/Bộ sưu tập connemara.html" class="khoi-hangmoi">
+                    <img src="~/Content/images/Homeimg/hangmoi02VI.jpg" alt="" class="img-fluid" />
+                    <h3 class="ten-hangmoi">BỘ SƯU TẬP CONNEMARA</h3>
+                </a>
+            </div>
+            <div class="col-sm-4 hm">
+                <a href="HÀNG MỚI/Đôn mềm có hộc.html" class="khoi-hangmoi">
+                    <img src="~/Content/images/Homeimg/hangmoi03VI.jpg" alt="" class="img-fluid" />
+                    <h3 class="ten-hangmoi">Bộ sưu tập Đôn mềm có hộc</h3>
+                </a>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- HẾT HTML PHẦN HÀNG MỚI -->
+    <!-- HTML CHO PHẦN XEM SẢN PHẨM -->
+    <div class="khoixemsp">
+        <div class="noidungsp">
+            <div class="ndtrai">
+                <img src="" alt="">
+            </div>
+            <div class="ndphai">
+                <a href="#" class="exit"></a>
+                <h4 class="kx_ten">Bộ chân NARBONNE</h4>
+                <div class="kx_danhgia">
+                    <img src="images/ra1.png" alt="">
+                    <img src="images/ra1.png" alt="">
+                    <img src="images/ra1.png" alt="">
+                    <img src="images/ra1.png" alt="">
+                    <img src="images/ra2.png" alt="">
+                </div>
+                <h3 class="kx_gia">1,500,000Đ</h3>
+                <h3>Color:</h3>
+                <div class="kx_color">
+                    <ul>
+                        <li><a href="#" class=""></a></li>
+                        <li><a href="#" class=""></a></li>
+                        <li><a href="#" class=""></a></li>
+                        <li><a href="#" class=""></a></li>
+                        <li><a href="#" class=""></a></li>
+                    </ul>
+                </div>
+                <h3>Size:</h3>
+                <div class="kx_size">
+                    <ul>
+                        <li><a href="#">S</a></li>
+                        <li><a href="#">M</a></li>
+                        <li><a href="#">L</a></li>
+                        <li><a href="#">XL</a></li>
+                        <li><a href="#">XXL</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HẾT HTML CHO PHẦN XEM SẢN PHẨM -->
+    <!-- HTML PHẦN TIÊU BIỂU -->
+    <div class="container pb-3">
+        <div class="row">
+            <div class="col-sm-12 text-xs-center mt-3 mb-3">
+                <h3 class="trangtri">DANH MỤC TIÊU BIỂU</h3>
+            </div>
+            <div class="col-sm-6">
+                <a href="PHÒNG/Kệ sách.html" class="khoi-tieubieu">
+                    <div class="khoi-tieubieu-trai">
+                        <div class="layertext">
+                            <div class="layer-text">Kệ sách</div>
+                        </div>
+                    </div>
+                    <div class="khoi-tieubieu-phai"
+                         style="background-image: url(../../Content/images/Homeimg/img-tieubieu1.png);"></div>
+                </a>
+            </div>
+            <div class="col-sm-6">
+                <a href="SẢN PHẨM/Đồ trang trí.html" class="khoi-tieubieu">
+                    <div class="khoi-tieubieu-trai">
+                        <div class="layertext">
+                            <div class="layer-text">Đồ trang trí</div>
+                        </div>
+                    </div>
+                    <div class="khoi-tieubieu-phai"
+                         style="background-image: url(../../Content/images/Homeimg/img-tieubieu2.png);"></div>
+                </a>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <a href="SẢN PHẨM/Ly.html" class="khoi-tieubieu">
+                    <div class="khoi-tieubieu-trai">
+                        <div class="layertext">
+                            <div class="layer-text">LY RƯỢU</div>
+                        </div>
+                    </div>
+                    <div class="khoi-tieubieu-phai"
+                         style="background-image: url(../../Content/images/Homeimg/img-tieubieu3.png);"></div>
+                </a>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <a href="SẢN PHẨM/Đèn bàn.html" class="khoi-tieubieu">
+                    <div class="khoi-tieubieu-trai">
+                        <div class="layertext">
+                            <div class="layer-text">ĐÈN BÀN</div>
+                        </div>
+                    </div>
+                    <div class="khoi-tieubieu-phai"
+                         style="background-image: url(../../Content/images/Homeimg/img-tieubieu4.png);"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- HẾT HTML PHẦN TIÊU BIỂU -->
+    <!-- HTML PHẦN ĐỊA CHỈ -->
+    <div class="diachi">
+        <div class="nenden-diachi">
+            <h3 class="our">ĐỊA CHỈ</h3>
+            <p class="tieude-trangtri">
+                UMA hiện đang sở hữu hệ thống 15 Siêu thị Nội Thất và Trang Trí tại hai thành phố chính của Việt Nam là Hà Nội và TP.Hồ Chí Minh.
+            </p>
+            <a href="Cửa hàng.html" class="nut">Hệ thống cửa hàng </a>
+        </div>
+    </div>
+    <!-- HẾT HTML PHẦN ĐỊA CHỈ -->
+    <!-- HTML CHO PHẦN TƯƠNG TÁC NGƯỜI DÙNG -->
+    <div class="lendau">
+        <img src="~/Content/images/Homeimg/up-arrow.png" alt="">
+    </div>
+    <!-- HẾT HTML CHO PHẦN TƯƠNG TÁC NGƯỜI DÙNG -->
+    <!-- HTML CHO PHẦN FOOTER -->
+    <div class="ft">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 gtcty">
+                    <img src="~/Content/images/Homeimg/logoft.svg" alt="" class="img-fluid" />
+                    <p class="tencongty">CÔNG TY TNHH SXTM & DV VĂN TOÀN</p>
+                    <P class="giaychungnhan">Giấy chứng nhận kinh doanh:</P>
+                    <p class="ndchungnhan">
+                        Số 0102064563 do Phòng đăng ký kinh doanh, Sở kế hoạch và đầu tư
+                        TP Hà Nội cấp ngày 27/10/2006
+                    </p>
+                    <p class="daidienpl">Đại diện pháp luật:</p>
+                    <p class="tendd">Mark</p>
+                    <a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href=""><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                    <a href=""><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="">
+                        <i class="fa fa-youtube-square" aria-hidden="true"></i>
+                    </a>
+                    <a href=""><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+                <div class="col-sm-2 about">
+                    <p>VỀ UMA</p>
+                    <a href="">Tuyển dụng</a>
+                    <a href="">Liên hệ</a>
+                    <a href="">Chính sách & Điều khoản</a>
+                    <a href="">F.A.Q</a>
+                    <img src="~/Content/images/Homeimg/bocongthuong.png" alt="" style="width: 142px;">
+                </div>
+                <div class="col-sm-2 about">
+                    <p>THIẾT KẾ NỘI THẤT</p>
+                    <a href="">Quy trình làm việc</a>
+                    <a href="">Công trình của UMA</a>
+                    <a href="">Nguồn cảm hứng</a>
+                    <img src="~/Content/images/Homeimg/mastercard.svg" alt="" style="width: 80px;margin-top: 35px;">
+                    <img src="~/Content/images/Homeimg/visa.svg" alt="" style="width: 80px;margin-top: 35px;">
+                </div>
+                <div class="col-sm-2 about">
+                    <p>SITE MAP</p>
+                    <a href="">Sản phẩm</a>
+                    <a href="">Phòng</a>
+                    <a href="">Hàng mới</a>
+                    <a href="">Bán Chạy</a>
+                    <a href="">Combo tiết kiệm</a>
+                </div>
+                <div class="col-sm-3 contact">
+                    <p class="ct">THÔNG TIN LIÊN LẠC</p>
+                    <p>
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <a href="">0971574029</a>
+                    </p>
+                    <p>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <a href="">maxim3051999@gmail.com</a>
+                    </p>
+                    <p>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        <a href="">PO Box 1622 Colins Street West Victoria 8077 Australia</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-sm-3 free">
+                    <p>MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC</p>
+                    <p>Freeship oder trên 10 triệu</p>
+                </div>
+                <div class="col-sm-3 free">
+                    <p>HOÀN TIỀN TRONG 30 NGÀY</p>
+                    <p>Có thể trả lại tiền bất cứ lúc nào</p>
+                </div>
+                <div class="col-sm-3 free">
+                    <p>HỖ TRỢ CHUYÊN NGHIỆP 24/7</p>
+                    <p>maxim3051999@gmail.com</p>
+                </div>
+                <div class="col-sm-3 free">
+                    <p>KIỂM TRA AN TOÀN 100%</p>
+                    <p>Bảo vệ người mua và khách hàng</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HẾT HTML CHO PHẦN FOOTER -->
+    <!--LINK JS-->
+    <script type="text/javascript" src="~/Content/vendor/bootstrap.js"></script>
+    <script src="~/Content/js/cdn.js"></script>
+    <script src="~/Content/js/wow.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+    <script src="~/Content/js/isotope.pkgd.min.js"></script>
+    <script src="~/Content/js/UMA.JS"></script>
+    <script src="~/Content/js/Home.js"></script>
+    <!--END LINK JS-->
+    @RenderSection("jsFooter", required: false)
+</body>
+</html>

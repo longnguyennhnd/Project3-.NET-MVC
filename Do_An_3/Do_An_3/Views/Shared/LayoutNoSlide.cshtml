@@ -1,0 +1,238 @@
+﻿@using Do_An_3.Models;
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>UMA | Furniture & Decoration</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/Content/vendor/bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/vendor/font-awesome.css" />
+    <link rel="icon"
+          href="https://uma.vn/media/favicon/default/favicon_1_.ico"
+          type="image/x-icon" />
+    <link rel="shortcut icon"
+          href="https://uma.vn/media/favicon/default/favicon_1_.ico"
+          type="image/x-icon" />
+    <link rel="stylesheet" href="~/Content/css/animate.css" />
+    <link href="~/Content/css/Sản phẩm-lv4.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+          rel="stylesheet" />
+    <script>
+        function Muahang(id) {
+            console.log(id);
+            $.get("@Url.Action("Muahang", "Home")", { id: id }, function (data) {
+                $(".amount").html(data.soluong);
+                console.log(data.soluong);
+                $(".tongtien").html(data.tongtien);
+                console.log(data.tongtien);
+                var rows = "";
+                $.each(data.GioHang, function (i, val) {
+//                    $(".danhsachspgh").append(" <div class='sanphamgh'> \
+//<div class='sanphamgh'><img src='/Content/images/AnhCTSP/"+ val.Image + "'><div class='thongtinspgh'><p class='tenspgh'>" + val.Name + "</p><input type='number' class='soluong' value=" + val.SL + "><p class='giaspgh'>" + val.DonGia + "</p></div><a href='#' class='xoasp' onclick='DeleteProductFromCart(" + val.ID + ");'><img src='/Content/images/Homeimg/delete.png'></a></div>");
+                    var row = `<div class="sanphamgh"> <div class="sanphamgh"><img src="/Content/images/AnhCTSP/${val.Image}"><div class="thongtinspgh"><p class="tenspgh">${val.Name}</p><input type="number" class="soluong" value="${val.SL}"><p class="giaspgh">${val.DonGia}</p></div><a style="cursor: pointer" class="xoasp" onclick="DeleteProductFromCart(${val.ID});"><img src="/Content/images/Homeimg/delete.png"></a></div></div>`
+                    rows+=row
+                });
+                $(".danhsachspgh").html(rows)
+            });
+        }
+        function DeleteProductFromCart(id) {
+            $.ajax({
+                url: '@Url.Action("DeleteProductFromCart", "Home")',
+                type: "Post",
+                datatype: 'JSon',
+                data: { id: id },
+                success: function (data) {
+                    $(this).parents(".sanphamgh").remove();
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <!-- HTML CHO PHẦN KHỐI TOP -->
+    <div class="khoitop">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="khoitoptrai">
+                        <a href="#" class="ourshop">Cửa hàng</a>
+                        <span class="call">Liên hệ:</span>
+                        <span class="phone">1900 63 64 76</span>
+                        <a href="#" class="live">Hỗ trợ</a>
+                        <a href="#" class="faq">faq</a>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="khoitopphai">
+                        <a href="#" class="login">Đăng nhập</a>
+                        <a href="@Url.Action("Register", "User")" class="signup">Đăng ký</a>
+                        <a href="#" class="cart" style="background-image: url(/Content/images/Homeimg/cart.png);"></a>
+                        <span class="amount">0</span>
+                        <a href="#" class="point" style="background-image: url(/Content/images/Homeimg/point.png);"></a>
+                        <a href="#" class="flag">
+                            <img src="~/Content/images/Homeimg/uk.png" alt="" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HẾT HTML CHO PHẦN KHỐI TOP -->
+    <!-- HTML CHO PHẦN GIỚI THIỆU -->
+    <div class="gioithieu">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <a href="#" class="logo">
+                        <img src="~/Content/images/Homeimg/logovn.png" alt="" />
+                    </a>
+                </div>
+                <div class="col-sm-6">
+                    <div class="formtimkiem float-xs-right">
+                        <input type="text" autocomplete="off" placeholder="Tìm kiếm" maxlength="128" />
+                        <button class="submit">
+                            <img src="~/Content/images/Homeimg/search.png" alt="" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HẾT HTML CHO PHẦN GIỚI THIỆU -->
+    <!-- HTML CHO PHẦN MENU -->
+    @{Html.RenderAction("MainMenu", "Home"); }
+    <!-- HẾT HTML CHO PHẦN MENU -->
+    @*@{ Html.RenderAction("Index", "Login");}*@
+    @RenderBody()
+    <!-- HTML CHO PHẦN GIỎ HÀNG -->
+    <div class="giohang">
+        <p>Giỏ hàng</p>
+        <a href="#" class="cl"></a>
+        <div class="danhsachspgh">
+            @if (Session["giohang"] != null)
+            {
+                List<GioHang> gh = (List<GioHang>)Session["GioHang"];
+                foreach (GioHang item in gh)
+                {
+                    <div class="sanphamgh">
+                        <img src="/Content/images/AnhCTSP/@item.Image">
+                        <div class="thongtinspgh">
+                            <p class="tenspgh">@item.Name</p>
+                            <input type="number" class="soluong" value="@item.SL">
+                            <p class="giaspgh">@item.DonGia</p>
+                        </div>
+                        <a style="cursor: pointer" class="xoasp" onclick="DeleteProductFromCart(@item.ID)">
+                            <img src="/Content/images/Homeimg/delete.png">
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+        <div class="tongcong">
+            <span>Tổng cộng</span>
+            <span class="tongtien"></span>
+        </div>
+        <a href="/Home/View_Cart" class="xemgh">Xem Giỏ Hàng</a>
+        <a href="/Home/Checkout" class="thanhtoan">Thanh Toán</a>
+    </div>
+    <!-- HẾT HTML CHO PHẦN GIỎ HÀNG -->
+    <!-- HTML CHO PHẦN TƯƠNG TÁC NGƯỜI DÙNG -->
+    <div class="lendau">
+        <img src="~/Content/images/Homeimg/up-arrow.png" alt="">
+    </div>
+    <!-- HẾT HTML CHO PHẦN TƯƠNG TÁC NGƯỜI DÙNG -->
+    <!-- HTML CHO PHẦN FOOTER -->
+    <div class="ft">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 gtcty">
+                    <img src="~/Content/images/Homeimg/logoft.svg" alt="" class="img-fluid" />
+                    <p class="tencongty">CÔNG TY TNHH SXTM & DV VĂN TOÀN</p>
+                    <P class="giaychungnhan">Giấy chứng nhận kinh doanh:</P>
+                    <p class="ndchungnhan">
+                        Số 0102064563 do Phòng đăng ký kinh doanh, Sở kế hoạch và đầu tư
+                        TP Hà Nội cấp ngày 27/10/2006
+                    </p>
+                    <p class="daidienpl">Đại diện pháp luật:</p>
+                    <p class="tendd">Lê Xuân Thắng</p>
+                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-youtube-square" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+                <div class="col-sm-2 about">
+                    <p>VỀ UMA</p>
+                    <a href="#">Tuyển dụng</a>
+                    <a href="#">Liên hệ</a>
+                    <a href="#">Chính sách & Điều khoản</a>
+                    <a href="#">F.A.Q</a>
+                    <img src="~/Content/images/Homeimg/bocongthuong.png" alt="" style="width: 142px;" />
+                </div>
+                <div class="col-sm-2 about">
+                    <p>THIẾT KẾ NỘI THẤT</p>
+                    <a href="#">Quy trình làm việc</a>
+                    <a href="#">Công trình của UMA</a>
+                    <a href="#">Nguồn cảm hứng</a>
+                    <img src="~/Content/images/Homeimg/mastercard.svg" alt="" style="width: 80px;margin-top: 35px;" />
+                    <img src="~/Content/images/Homeimg/visa.svg" alt="" style="width: 80px;margin-top: 35px;" />
+                </div>
+                <div class="col-sm-2 about">
+                    <p>SITE MAP</p>
+                    <a href="#">Sản phẩm</a>
+                    <a href="#">Phòng</a>
+                    <a href="#">Hàng mới</a>
+                    <a href="#">Bán Chạy</a>
+                    <a href="#">Combo tiết kiệm</a>
+                </div>
+                <div class="col-sm-3 contact">
+                    <p class="ct">THÔNG TIN LIÊN LẠC</p>
+                    <p>
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <a href="#">0971574029</a>
+                    </p>
+                    <p>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <a href="#">maxim3051999@gmail.com</a>
+                    </p>
+                    <p>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        <a href="#">PO Box 1622 Colins Street West Victoria 8077 Australia</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-sm-3 free">
+                    <p>MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC</p>
+                    <p>Freeship oder trên 10 triệu</p>
+                </div>
+                <div class="col-sm-3 free">
+                    <p>HOÀN TIỀN TRONG 30 NGÀY</p>
+                    <p>Có thể trả lại tiền bất cứ lúc nào</p>
+                </div>
+                <div class="col-sm-3 free">
+                    <p>HỖ TRỢ CHUYÊN NGHIỆP 24/7</p>
+                    <p>maxim3051999@gmail.com</p>
+                </div>
+                <div class="col-sm-3 free">
+                    <p>KIỂM TRA AN TOÀN 100%</p>
+                    <p>Bảo vệ người mua và khách hàng</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HẾT HTML CHO PHẦN FOOTER -->
+    <!--LINK JS-->
+    <script type="text/javascript" src="~/Content/vendor/bootstrap.js"></script>
+    <script src="~/Content/js/cdn.js"></script>
+    <script src="~/Content/js/wow.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+    <script src="~/Content/js/isotope.pkgd.min.js"></script>
+    <script src="~/Content/js/Sản phẩm-lv4.js"></script>
+    <script src="~/Content/js/UMA.JS"></script>
+    <!--END LINK JS-->
+</body>
+</html>

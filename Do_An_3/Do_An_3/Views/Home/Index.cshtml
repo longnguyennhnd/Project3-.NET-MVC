@@ -1,0 +1,48 @@
+﻿@using Model.EF;
+@model IEnumerable<Sanpham>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/HomeLayout.cshtml";
+}
+@section jsFooter
+{
+
+}
+<div class="container mt-2 cacspmoi mb-1">
+    <div class="row mb-2">
+        <div class="col-sm-12 text-xs-center mt-3 mb-1">
+            <h3 class="trangtri">SẢN PHẨM tiêu biểu</h3>
+        </div>
+    </div>
+    <div class="row nsp">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-3 motsp">
+                <a href="@Url.Action("XemChiTiet", "SanPham", new { @maSP = item.MaSP })"><img src="@Url.Content("/Content/images/SanPhamimg/"+item.AnhSP)" alt="@item.TenSP" class="img-fluid anhsp"></a>
+                <div class="new">Mới</div>
+                <div class="hot">Hot</div>
+                <h3 class="tensp">@item.TenSP</h3>
+                <span>@item.KichThuoc</span>
+                <div class="rating">
+                    <img src="~/Content/images/Homeimg/ra1.png" alt="">
+                    <img src="~/Content/images/Homeimg/ra1.png" alt="">
+                    <img src="~/Content/images/Homeimg/ra1.png" alt="">
+                    <img src="~/Content/images/Homeimg/ra1.png" alt="">
+                    <img src="~/Content/images/Homeimg/ra1.png" alt="">
+                </div>
+                <span class="giasp">@(string.Format("{0:#,##0}",item.GiaBan)) VNĐ</span>
+                <div class="nut-muahang">
+                    <a style="cursor: pointer;" onclick="Muahang('@item.MaSP');">
+                        <div class="mua">mua hàng</div>
+                        <div class="layer1"></div>
+                        <div class="layer2"></div>
+                    </a>
+                </div>
+                <a href="#" class="xem"><img src="~/Content/images/Homeimg/eye.png" alt=""></a>
+                <a href="#" class="yeuthich"><img src="~/Content/images/Homeimg/heart.png" alt=""></a>
+            </div>
+        }
+    </div>
+</div>
+
+

@@ -1,0 +1,205 @@
+﻿@model PagedList.IPagedList<Model.EF.Sanpham>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Quản lý người dùng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutProductAdmin.cshtml";
+}
+<style>
+    .pagination li {
+        padding: 8px 12px;
+    }
+</style>
+
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="card">
+        <h5 class="card-header">Basic Table</h5>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6">
+
+                            <div id="DataTables_Table_0_filter" class="dataTables_filter" style="display: inline;">
+                                <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0"></label>
+                            </div>
+                            <button style="margin-left: 90px;" type="button" class="btn btn-primary btnAdd" data-toggle="modal" data-target="#myModaladd">Thêm Mới</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-striped table-bordered first dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 132px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">Tên sản phẩm</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 92px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">Ảnh sản phẩm</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 41px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">Giá bán</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 88px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">Tình trạng</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 73px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">Thiết kế bởi</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 73px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">Số lượng</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 73px;"></th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 73px;"></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr role="row" class="odd" id="row_@item.MaSP">
+                                            <td style="display: none;" id="td6_@item.MaSP">@item.MaLoaiSP</td>
+                                            <td style="display: none;" id="td7_@item.MaSP">@item.MaNCC</td>
+                                            <td style="display: none;" id="td8_@item.MaSP">@item.MaSP</td>
+                                            <td id="td0_@item.MaSP" style="width: 200px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important; font-size: 12px; font-weight: bold;" class="sorting_1">@item.TenSP</td>
+                                            <td id="td1_@item.MaSP" style="width: 180px;"><img style="position: relative; left: 25px; width: 100px; height: 100px;" src="~/Content/images/AnhCTSP/@item.AnhSP" /></td>
+                                            <td id="td2_@item.MaSP" style="width: 100px;">@item.GiaBan</td>
+                                            <td id="td3_@item.MaSP">@item.TrangThai</td>
+                                            <td id="td4_@item.MaSP" style="width: 120px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">@item.ThietKeBoi</td>
+                                            <td id="td5_@item.MaSP" style="width: 120px;">@item.SoLuong</td>
+                                            <td><button type="button" class="btn btn-primary btnEditSP" data-toggle="modal" data-target="#myModal" data-id="@item.MaSP" onclick="UpdateModal(@item.MaSP)">Sửa</button></td>
+                                            <td>@Ajax.ActionLink("Xóa", "Delete", "Product", new { @id = item.MaSP, @type = "button", @class = "btn btn-delete" }, new AjaxOptions { Confirm = "Bạn có muốn xóa?", OnComplete = "$('#row_" + @item.MaSP + "').remove()", HttpMethod = "Delete" })</td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th rowspan="1" colspan="1">User Name</th>
+                                        <th rowspan="1" colspan="1">Name</th>
+                                        <th rowspan="1" colspan="1">Address</th>
+                                        <th rowspan="1" colspan="1">Email</th>
+                                        <th rowspan="1" colspan="1">Phone</th>
+                                        <th rowspan="1" colspan="1"></th>
+                                        <th rowspan="1" colspan="1"></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Sửa Sản Phẩm</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="" class="col-form-label">Tên sản phẩm</label>
+                    <input type="text" id="txtMa" style="display: none;">
+                    <input type="text" id="txtMaLoai" style="display: none;">
+                    <input type="text" id="txtNCC" style="display: none;">
+                    <input id="txtTenSP" type="text" class="form-control">
+                </div>
+                @*<div class="form-group">
+                        <label for="" class="col-form-label">UserName</label>
+                        <input id="txt" disabled type="text" class="form-control">
+                    </div>*@
+                <div class="form-group">
+                    <label for="" class="col-form-label">Giá bán</label>
+                    <input id="txtGiaban" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Trạng thái</label>
+                    <input id="txtTrangthai" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Thiết kế bởi</label>
+                    <input id="txtThietkeboi" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Số lượng</label>
+                    <input id="txtSoluong" type="text" class="form-control">
+                </div>
+
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnSave">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="myModaladd">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm sản phẩm</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="" class="col-form-label">Tên sản phẩm</label>
+                    <input type="hidden" name="" id="txtMaadd" />
+                    <input id="txtTenSPadd" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Giá bán</label>
+                    <input id="txtGiabanadd" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Hình ảnh</label>
+                    <input id="txtImgadd" type="file" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Trạng thái</label>
+                    <input id="txtTrangthaiadd" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Thiết kế bởi</label>
+                    <input id="txtThietkeboiadd" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Số lượng</label>
+                    <input id="txtSoluongadd" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Kích thước</label>
+                    <input id="txtKichthuocadd" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Mã loại sản phẩm</label>
+                    <input id="txtMaloaiSPadd" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Mã nhà cung cấp</label>
+                    <input id="txtMaNCCadd" type="text" class="form-control">
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnSaveadd">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function UpdateModal(Masp) {
+        console.log(Masp)
+        $("#txtTenSP").val($("#td0_" + Masp).html())
+        $("#txtGiaban").val($("#td2_" + Masp).html())
+        $("#txtTrangthai").val($("#td3_" + Masp).html())
+        $("#txtThietkeboi").val($("#td4_" + Masp).html())
+        $("#txtSoluong").val($("#td5_" + Masp).html())
+        $("#txtMaLoai").val($("#td6_" + Masp).html())
+        $("#txtNCC").val($("#td7_" + Masp).html())
+        $("#txtMa").val($("#td8_" + Masp).html())
+    }
+</script>

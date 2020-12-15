@@ -1,0 +1,28 @@
+﻿@using Model.EF;
+@model List<Sanpham>
+
+<div class="mnu">
+    <div class="container">
+        <ul class="menu">
+            <li><a href="@Url.Action("Index","Home")" style="color: #C41230;" class="hovtrangchu">TRANG CHỦ</a></li>
+            @foreach (var group in Model.GroupBy(n => n.LoaiSP.Phong))
+            {
+                <li>
+                    <a href="@Url.Action("Index","Phong", new {@Maphong=group.Key.MaLoaiPhong })">@group.Key.TenLoaiPhong</a>
+                    <ul style="height: auto">
+                        @foreach (var groupItem in group.GroupBy(n => n.LoaiSP))
+                        {
+                            <li style="padding-bottom: 35px; padding-top: 3px;">
+                                <a href="@Url.Action("SanPham", "SanPham", new {@Maphong=group.Key.MaLoaiPhong, @Maloaisp = groupItem.Key.MaLoaiSP})" style="font-weight: 700">@groupItem.Key.TenLoai</a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+
+            <li><a href="Về uma.html">Về uma</a></li>
+            <li><a href="">catalog 2019</a></li>
+        </ul>
+    </div>
+</div>
+

@@ -1,0 +1,97 @@
+﻿@model Do_An_3.Models.LoginModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Content/contentAdmin/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/contentAdmin/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/contentAdmin/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/contentAdmin/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/contentAdmin/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/contentAdmin/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/contentAdmin/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/contentAdmin/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/contentAdmin/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/contentAdmin/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/contentAdmin/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+            <div class="wrap-login100">
+                @using (Html.BeginForm("Login", "Users", FormMethod.Post, new { @class = "login100-form validate-form" }))
+                {
+                    @Html.ValidationSummary(false, "", "Error")
+                    <span class="login100-form-logo">
+                        <i class="zmdi zmdi-landscape"></i>
+                    </span>
+
+                    <span class="login100-form-title p-b-34 p-t-27">
+                        Log in
+                    </span>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="wrap-input100 validate-input" data-validate="Enter username">
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "input100", @placeholder = "UserName" })
+                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        @Html.PasswordFor(model => model.Password, new { @class = "input100", @placeholder = "Password" })
+                        <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                    </div>
+                    <div class="contact100-form-checkbox">
+                        @Html.LabelFor(model => model.RememberMe, new { @class = "label-checkbox100", @for = "ckb1" })
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-90">
+                        <a class="txt1" href="#">
+                            Forgot Password?
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div id="dropDownSelect1"></div>
+
+    <script src="~/Content/contentAdmin/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/contentAdmin/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/contentAdmin/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Content/contentAdmin/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/contentAdmin/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/contentAdmin/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/Content/contentAdmin/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/contentAdmin/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/contentAdmin/js/main.js"></script>
+</body>
+</html>

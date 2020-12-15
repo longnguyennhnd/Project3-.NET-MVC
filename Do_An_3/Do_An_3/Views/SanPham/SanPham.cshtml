@@ -1,0 +1,254 @@
+﻿@using Model.EF
+@model PagedList.IPagedList<Model.EF.Sanpham>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "SanPham";
+    Layout = "~/Views/Shared/LayoutNoSlide.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/Content/css/Phòng-lv3.css" />
+<style>
+    .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+        z-index: 2;
+        color: #ffffff;
+        cursor: default;
+        background-color: #c4123f;
+        border-color: #c4123f;
+    }
+    .pagination > li > a, .pagination > li > span {
+        color: black;
+    }
+</style>
+<!-- HTML CHO PHẦN ĐƯỜNG DẪN -->
+<div class="duongdan">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <a href="../HomeVI.html" class="home"><img src="~/Content/images/Homeimg/home.png" alt="" /></a>
+                <a href="Phòng.html"><span>phòng</span></a>
+                <a href="Phòng ngủ.html"><span>phòng ngủ</span></a>
+                <a href="Giường ngủ.html"><span>giường ngủ</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- HẾT HTML CHO PHẦN ĐƯỜNG DẪN -->
+<!-- HTML CHO PHẦN SẢN PHẨM -->
+<div class="sanpham mb-2 mt-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <ul class="menutrai" style="">
+                    <li>
+                        <a href="Phòng ngủ.html" class="active">phòng ngủ</a>
+                        <ul style="">
+                            <li><a href="Giường ngủ.html" class="kichhoat">giường ngủ</a></li>
+                            <li><a href="Bàn kê đầu giường.html">bàn kê đầu giường</a></li>
+                            <li><a href="Gương.html">Gương</a></li>
+                            <li><a href="Bàn trang điểm.html">bàn trang điểm</a></li>
+                            <li><a href="Gối trang trí.html">gối trang trí</a></li>
+                            <li><a href="Chăn ga.html">chăn ga</a></li>
+                            <li><a href="Đèn phòng ngủ.html">đèn phòng ngủ</a></li>
+                            <li><a href="Đồ trang trí.html">đồ trang trí</a></li>
+                            <li><a href="Tủ ngăn kéo.html">tủ ngăn kéo</a></li>
+                            <li><a href="Tiện ích sắp xếp.html">tiện ích sắp xếp phòng ngủ</a></li>
+                            <li><a href="Tủ quần áo.html">tủ quần áo</a></li>
+                            <li><a href="Nệm.html">nệm</a></li>
+                            <li><a href="Ruột gối và chăn.html">ruột gối & chăn</a></li>
+                            <li><a href="Thảm.html">thảm</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="Phòng khách.html">phòng khách</a>
+                    </li>
+                    <li>
+                        <a href="Phòng ăn.html">phòng ăn</a>
+                    </li>
+                    <li>
+                        <a href="Phòng học làm việc.html">phòng học & làm việc</a>
+                    </li>
+                    <li>
+                        <a href="Phòng tắm.html">phòng tắm</a>
+                    </li>
+                    <li>
+                        <a href="Nhà bếp.html">nhà bếp</a>
+                    </li>
+                    <li>
+                        <a href="Sảnh lối vào.html">sảnh & lối vào</a>
+                    </li>
+                </ul>
+                <div class="xeptheogia">
+                    <h3>Xếp theo:</h3>
+                    <select name="" id="">
+                        <option value="" selected="selected">Giá cao đến thấp</option>
+                        <option value="">Giá thấp đến cao</option>
+                    </select>
+                </div>
+                <div class="loctheogia">
+                    <h3>Lọc theo giá :</h3>
+                    <div class="khoanggia">
+                    </div>
+                    <input type="range" name="" class="slider" id="giadau" min="1000000" max="25000000"
+                           value="1000000">
+                    <input type="range" name="" class="slider" id="giacuoi" min="1000000" max="25000000"
+                           value="25000000">
+                </div>
+                <div class="loctheomau">
+                    <h3>Lọc theo màu sắc:</h3>
+                    <div class="nhieumau">
+                        <a href="#">
+                            <div class="motmau"
+                                 style="background-image: url(../../Content/images/Homeimg/m1.png); background-size: cover"></div>
+                        </a>
+                        <a href="#">
+                            <div class="motmau"
+                                 style="background-image: url(../../Content/images/Homeimg/m2.png); background-size: cover"></div>
+                        </a>
+                        <a href="#">
+                            <div class="motmau"
+                                 style="background-image: url(../../Content/images/Homeimg/m3.png); background-size: cover"></div>
+                        </a>
+                        <a href="#">
+                            <div class="motmau"
+                                 style="background-image: url(../../Content/images/Homeimg/m4.png); background-size: cover"></div>
+                        </a>
+                        <a href="#">
+                            <div class="motmau"
+                                 style="background-image: url(../../Content/images/Homeimg/m5.png); background-size: cover"></div>
+                        </a>
+                        <a href="#">
+                            <div class="motmau"
+                                 style="background-image: url(../../Content/images/Homeimg/m6.png); background-size: cover"></div>
+                        </a>
+                        <a href="#">
+                            <div class="motmau"
+                                 style="background-image: url(../../Content/images/Homeimg/m7.png); background-size: cover"></div>
+                        </a>
+                        <a href="#">
+                            <div class="motmau"
+                                 style="background-image: url(../../images/Homeimg/m8.png); background-size: cover"></div>
+                        </a>
+                        <a href="#">
+                            <div class="motmau"
+                                 style="background-image: url(../../Content/images/Homeimg/m9.png); background-size: cover"></div>
+                        </a>
+                        <a href="#">
+                            <div class="motmau"
+                                 style="background-image: url(../../Content/images/Homeimg/m10.png); background-size: cover"></div>
+                        </a>
+                        <a href="#">
+                            <div class="motmau"
+                                 style="background-image: url(../../Content/images/Homeimg/m11.png); background-size: cover"></div>
+                        </a>
+                        <a href="#">
+                            <div class="motmau"
+                                 style="background-image: url(../../Content/images/Homeimg/m12.png); background-size: cover"></div>
+                        </a>
+                        <a href="#">
+                            <div class="motmau"
+                                 style="background-image: url(../../Content/images/Homeimg/m13.png); background-size: cover"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- hết col-3 trái -->
+            <div class="col-sm-9">
+                <div class="row mb-3 pb-1">
+                    <div class="col-sm-12 text-xs-center">
+                        <h3 class="tieude">giường ngủ</h3>
+                    </div>
+                </div>
+                <!-- hết 1 row -->
+                <!-- -----------khối nhiều sp------------ -->
+                <div class="row mb-2 nhieusp">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-sm-4 motsp ">
+                            <a href="@Url.Action("XemChiTiet","SanPham", new {id= item.MaSP })">
+                                <img src="~/Content/images/SanPhamimg/@item.AnhSP"
+                                     alt="" class="img-fluid anhsp" />
+                            </a>
+                            <div class="new">Mới</div>
+                            <h3 class="tensp">@item.TenSP</h3>
+                            <span>@item.KichThuoc</span>
+                            <div class="rating">
+                                <img src="~/Content/images/Homeimg/ra1.png" alt="" />
+                                <img src="~/Content/images/Homeimg/ra1.png" alt="" />
+                                <img src="~/Content/images/Homeimg/ra1.png" alt="" />
+                                <img src="~/Content/images/Homeimg/ra1.png" alt="" />
+                                <img src="~/Content/images/Homeimg/ra1.png" alt="" />
+                            </div>
+                            <span class="giasp">@(string.Format("{0:#,##0}", item.GiaBan)) VNĐ</span>
+                            <div class="nut-muahang">
+                                <a style="cursor: pointer;" onclick="Muahang('@item.MaSP');">
+                                    <div class="mua">mua hàng</div>
+                                    <div class="layer1"></div>
+                                    <div class="layer2"></div>
+                                </a>
+                            </div>
+                            <a href="#" class="xem"><img src="~/Content/images/Homeimg/eye.png" alt="" /></a>
+                            <a href="#" class="yeuthich"><img src="~/Content/images/Homeimg/heart.png" alt="" /></a>
+                        </div>
+                        <!-- ------hết 1 sản phẩm--------- -->
+                    }
+                </div>
+                <div class="dlink" style="position: relative; left: 47%;">
+                    @*Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber )/@Model.PageCount*@
+                    @Html.PagedListPager(Model, Page => Url.Action("SanPham", new { Page = Page, @MaloaiSP = ViewBag.MaloaiSP, @Maphong = ViewBag.Maphong }))
+                </div>
+                <!------------------------ hết khối nhiều sp ----------------------->
+            </div>
+            
+        </div>
+    </div>
+</div>
+<!-- HẾT HTML CHO PHẦN SẢN PHẨM -->
+
+<!-- HTML CHO PHẦN TƯƠNG TÁC NGƯỜI DÙNG -->
+<div class="lendau">
+    <img src="~/Content/images/Homeimg/up-arrow.png" alt="">
+</div>
+<!-- HẾT HTML CHO PHẦN TƯƠNG TÁC NGƯỜI DÙNG -->
+<!-- HTML CHO PHẦN XEM SẢN PHẨM -->
+<div class="khoixemsp">
+    <div class="noidungsp">
+        <div class="ndtrai">
+            <img src="" alt="">
+        </div>
+        <div class="ndphai">
+            <a href="#" class="exit"></a>
+            <h4 class="kx_ten">Bộ chân NARBONNE</h4>
+            <div class="kx_danhgia">
+                <img src="~/Content/images/Homeimg/ra1.png" alt="">
+                <img src="~/Content/images/Homeimg/ra1.png" alt="">
+                <img src="~/Content/images/Homeimg/ra1.png" alt="">
+                <img src="~/Content/images/Homeimg/ra1.png" alt="">
+                <img src="~/Content/images/Homeimg/ra2.png" alt="">
+            </div>
+            <h3 class="kx_gia">1,500,000Đ</h3>
+            <h3>Color:</h3>
+            <div class="kx_color">
+                <ul>
+                    <li><a href="#" class=""></a></li>
+                    <li><a href="#" class=""></a></li>
+                    <li><a href="#" class=""></a></li>
+                    <li><a href="#" class=""></a></li>
+                    <li><a href="#" class=""></a></li>
+                </ul>
+            </div>
+            <h3>Size:</h3>
+            <div class="kx_size">
+                <ul>
+                    <li><a href="#">S</a></li>
+                    <li><a href="#">M</a></li>
+                    <li><a href="#">L</a></li>
+                    <li><a href="#">XL</a></li>
+                    <li><a href="#">XXL</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- HẾT HTML CHO PHẦN XEM SẢN PHẨM -->
+

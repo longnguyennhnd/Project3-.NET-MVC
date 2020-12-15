@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutHomeAdmin.cshtml";
+}
+<link href="~/assets/admin/assets/libs/css/Admin.css" rel="stylesheet" />
+
+<div>
+    Thống kê tổng
+</div>
+<div class="dulieu">
+    <div class="dl_motkhoi">
+        <div class="dl_trai">
+            <h3 class="solieu slsp">@ViewBag.ThongKeDDH</h3>
+            <span>Hóa đơn xuất</span>
+        </div>
+        <div class="dl_phai">
+            <img src="IMAGES/receipt.png" alt="">
+        </div>
+    </div>
+    <!-- hết 1 khối -->
+    <div class="dl_motkhoi">
+        <div class="dl_trai">
+            <h3 class="solieu tslsp">@ViewBag.TongSLBan</h3>
+            <span>Tổng số lượng bán ra</span>
+        </div>
+        <div class="dl_phai">
+            <img src="IMAGES/house.png" alt="">
+        </div>
+    </div>
+    <!-- hết 1 khối -->
+    <div class="dl_motkhoi">
+        <div class="dl_trai">
+            <h3 class="solieu tg">@(string.Format("{0:#,##0}", ViewBag.ThongKeDoanhThu))</h3>
+            <span>Tổng doanh thu</span>
+        </div>
+        <div class="dl_phai">
+            <img src="IMAGES/purse.png" alt="">
+        </div>
+    </div>
+    <!-- hết 1 khối -->
+    <!-- <div class="dl_motkhoi">
+        <div class="dl_trai">
+          <h3 class="solieu">278</h3>
+          <span>Sản phẩm</span>
+        </div>
+        <div class="dl_phai">
+          <img src="IMAGES/profile.png" alt="">
+        </div>
+    </div> -->
+    <!-- hết 1 khối -->
+</div>
+<div>
+    Thống kê người dùng
+</div>
+<div class="dulieu">
+    <div class="dl_motkhoi">
+        <div class="dl_trai">
+            <h3 class="solieu slsp">@ViewBag.SoNguoiTruyCap</h3>
+            <span>Số lượng người truy cập</span>
+        </div>
+        <div class="dl_phai">
+            <img src="IMAGES/profile.png" alt="">
+        </div>
+    </div>
+</div>
+<div>
+    Thống kê theo tháng
+</div>
+
+<div class="dulieu">
+    <div class="dl_motkhoi">
+        <div class="dl_trai">
+            <h3 class="solieu slsp">@ViewBag.TongHDXThang</h3>
+            <span>Hóa đơn xuất tháng này</span>
+        </div>
+        <div class="dl_phai">
+            <img src="IMAGES/receipt.png" alt="">
+        </div>
+    </div>
+    <!-- hết 1 khối -->
+    <div class="dl_motkhoi">
+        <div class="dl_trai">
+            <h3 class="solieu tslsp">@ViewBag.TongSLBanTheoThang</h3>
+            <span>Tổng số lượng bán ra tháng này</span>
+        </div>
+        <div class="dl_phai">
+            <img src="IMAGES/house.png" alt="">
+        </div>
+    </div>
+    <!-- hết 1 khối -->
+    <div class="dl_motkhoi">
+        <div class="dl_trai">
+            <h3 class="solieu tg">@ViewBag.ThongKeDoanhThuThangđ</h3>
+            <span>Tổng doanh thu tháng này</span>
+        </div>
+        <div class="dl_phai">
+            <img src="IMAGES/purse.png" alt="">
+        </div>
+    </div>
+    <!-- hết 1 khối -->
+    <!-- <div class="dl_motkhoi">
+        <div class="dl_trai">
+          <h3 class="solieu">278</h3>
+          <span>Sản phẩm</span>
+        </div>
+        <div class="dl_phai">
+          <img src="IMAGES/profile.png" alt="">
+        </div>
+    </div> -->
+    <!-- hết 1 khối -->
+</div>

@@ -1,0 +1,179 @@
+﻿@using Do_An_3.Models
+@model IEnumerable<GioHang>
+
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/LayoutNoSlide.cshtml";
+}
+<link rel="icon" href="~/assets/Client/Checkout/img/core-img/favicon.ico">
+<link href="~/assets/Client/Checkout/css/core-style.css" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/Client/Checkout/css/style.css">
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb_area bg-img" style="background-image: url(img/bg-img/breadcumb.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="page-title text-center">
+                    <h2>Checkout</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+<!-- ##### Checkout Area Start ##### -->
+<div class="checkout_area section-padding-80">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12 col-md-6">
+                <div class="checkout_details_area mt-50 clearfix">
+
+                    <div class="cart-page-heading mb-30">
+                        <h5>Địa chỉ giao hàng</h5>
+                    </div>
+
+                    <form action="#" method="post">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="first_name">Họ tên<span>*</span></label>
+                                <input type="text" class="form-control" id="first_name" value="" required>
+                            </div>
+                            @*<div class="col-md-6 mb-3">
+                                    <label for="last_name">Tên <span>*</span></label>
+                                    <input type="text" class="form-control" id="last_name" value="" required>
+                                </div>*@
+                            @*<div class="col-12 mb-3">
+                                    <label for="country">Country <span>*</span></label>
+                                    <select class="w-100" id="country">
+                                        <option value="usa">Việt Nam</option>
+                                        <option value="uk">United Kingdom</option>
+                                        <option value="ger">Germany</option>
+                                        <option value="fra">France</option>
+                                        <option value="ind">India</option>
+                                        <option value="aus">Australia</option>
+                                        <option value="bra">Brazil</option>
+                                        <option value="cana">Canada</option>
+                                    </select>
+                                </div>*@
+                            <div class="col-12 mb-3">
+                                <label for="street_address">Địa chỉ nhận hàng<span>*</span></label>
+                                <input type="text" class="form-control mb-3" id="street_address" value="">
+                                @*<input type="text" class="form-control" id="street_address2" value="">*@
+                            </div>
+                            @*<div class="col-12 mb-3">
+                                    <label for="postcode">Postcode <span>*</span></label>
+                                    <input type="text" class="form-control" id="postcode" value="">
+                                </div>*@
+                            @*<div class="col-12 mb-3">
+                                    <label for="city">Town/City <span>*</span></label>
+                                    <input type="text" class="form-control" id="city" value="">
+                                </div>*@
+                            @*<div class="col-12 mb-3">
+                                    <label for="state">Province <span>*</span></label>
+                                    <input type="text" class="form-control" id="state" value="">
+                                </div>*@
+                            <div class="col-12 mb-3">
+                                <label for="phone_number">Phone Number <span>*</span></label>
+                                <input type="text" class="form-control" id="phone_number" min="0" value="">
+                            </div>
+                            <div class="col-12 mb-4">
+                                <label for="email_address">Email<span>*</span></label>
+                                <input type="email" class="form-control" id="email_address">
+                            </div>
+                            <div class="col-12 mb-4">
+                                <label for="email_address">Confirm Email<span>*</span></label>
+                                <input type="email" class="form-control" id="email_confirm" value="">
+                                <button onclick="SendEmail()" id="btn-email-confirm" class="email-confirm" style="position: absolute; top: 30px; right: 20px;background: 0 0; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; color: #c4123f; cursor: pointer; height: 40px;line-height: 40px;padding: 0;border: 0;text-transform: none;font-size: 14px;font-weight: 400;" type="button">Gửi mã xác thực</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-5 ml-lg-auto">
+                <div class="order-details-confirmation">
+
+                    <div class="cart-page-heading">
+                        <h5>Thông tin giỏ hàng</h5>
+                        <p>TChi tiết</p>
+                    </div>
+
+                    <ul class="order-details-form mb-4">
+                        <li><span>Sản Phẩm</span> <span>Total</span></li>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <li><span>@item.Name</span>x @item.SL <span>@(string.Format("{0:#,##0}", (item.DonGia * item.SL))) VNĐ</span></li>
+                            }
+                        }
+
+
+                        <li><span>Giảm giá</span> <span>0 VNĐ</span></li>
+                        <li><span>Phí vận chuyển</span> <span>Free</span></li>
+                        <li><span>Tổng tiền</span> <span>@(string.Format("{0:#,##0}", ViewBag.tongtien)) VNĐ</span></li>
+                    </ul>
+                    <a href="#" onclick="thanhtoan()" class="btn essence-btn">Thanh toán đơn hàng</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ##### Checkout Area End ##### -->
+<script src="~/assets/Client/Checkout/js/jquery/jquery-2.2.4.min.js"></script>
+<!-- Popper js -->
+<script src="~/assets/Client/Checkout/js/popper.min.js"></script>
+<!-- Bootstrap js -->
+<script src="~/assets/Client/Checkout/js/bootstrap.min.js"></script>
+<!-- Plugins js -->
+<script src="~/assets/Client/Checkout/js/plugins.js"></script>
+<!-- Classy Nav js -->
+<script src="~/assets/Client/Checkout/js/classy-nav.min.js"></script>
+<!-- Active js -->
+<script src="~/assets/Client/Checkout/js/active.js"></script>
+<script>
+    let code = "";
+    function SendEmail() {
+        var mail = $('#email_address').val();
+        
+        $.ajax({
+            url: '/Home/SendMailToUser',
+            type: 'GET',
+            dataType: 'json',
+            data: { mail: mail },
+            success: function (result) {
+                alert('Mã đã được gửi tới email của bạn');
+                code = result.code
+            }
+        });
+    }
+
+    function thanhtoan() {
+        console.log(code)
+        var txtConfirm = $('#email_confirm');
+        var txtcf = txtConfirm.val();
+        if (txtcf === code) {
+            alert("thanh cong")
+            var name = $('#first_name').val();
+            var address = $('#street_address').val();
+            var phonenum = $('#phone_number').val();
+            var email = $('#email_address').val();
+            $.post("/Home/Checkout", {
+                name: name,
+                address: address,
+                phonenum: phonenum,
+                email: email
+            }, function (data) {
+                if (data.success) {
+                    alert("ok");
+                    window.location = "/Home/Index";
+                }
+            })
+        }
+        else {
+            alert("that bai")
+        }
+    }
+</script>

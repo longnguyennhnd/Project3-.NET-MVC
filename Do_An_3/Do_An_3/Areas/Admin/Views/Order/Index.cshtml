@@ -1,0 +1,228 @@
+﻿@model PagedList.IPagedList<Model.EF.DonDatHang>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutProductAdmin.cshtml";
+}
+<style>
+    button.btn-primary {
+        padding: 7px;
+    }
+</style>
+<link href="~/assets/admin/assets/libs/css/Admin.css" rel="stylesheet" />
+<style>
+    .pagination li {
+        padding: 8px 12px;
+    }
+
+    .duockick {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .chitiet {
+        position: absolute;
+        width: 777px;
+        right: 100px;
+        top: 45px;
+        z-index: 99;
+        background-color: #dfe6e9;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.3s ease-out;
+        border: 1px solid gray;
+        border-top: 0px;
+    }
+
+    .modal-content {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        /* width: 100%; */
+        pointer-events: auto;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0,0,0,.2);
+        border-radius: .3rem;
+        outline: 0;
+        width: 867px;
+        position: absolute;
+        right: -293px;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+@*<script>
+        $(document).ready(function () {
+            $("#xemct").click(function () {
+                $("#chitiet").toggleClass("duockick");
+            });
+        });
+    </script>*@
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="card">
+        <h5 class="card-header">Quản lý hoá đơn xuất</h5>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6">
+
+                            <div id="DataTables_Table_0_filter" class="dataTables_filter" style="display: inline;">
+                                <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0"></label>
+                            </div>
+                            <button style="margin-left: 90px;" type="button" class="btn btn-primary btnAdd" data-toggle="modal" data-target="#myModaladd">Thêm Mới</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-striped table-bordered first dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 132px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">Tên khách hàng</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 92px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">Email</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 41px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">Địa chỉ giao hàng</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 88px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">Số điện thoại</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 73px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">Tổng tiền</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 73px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">Thanh toán</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 73px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">Trạng thái</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr role="row" class="odd" id="row_@item.MaDDH">
+                                            <td id="td0_@item.MaDDH" style="width: 200px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important; font-size: 12px; font-weight: bold;" class="sorting_1">@item.Name</td>
+                                            <td id="td1_@item.MaDDH" style="width: 180px;">@item.Email"</td>
+                                            <td id="td2_@item.MaDDH" style="width: 200px;">@item.DiaChiGiaoHang</td>
+                                            <td id="td3_@item.MaDDH">@item.PhoneNum</td>
+                                            <td id="td4_@item.MaDDH" style="width: 120px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">@item.TongTien</td>
+                                            <td id="td5_@item.MaDDH" style="width: 120px;">@item.ThanhToan</td>
+                                            <td style="width: 120px;">
+                                                <input type="hidden" value="@item.MaDDH" id="txtid" />
+                                                <input type="text" disabled value="@item.TrangThai" />
+                                                <select class="form-control" id="SLTrangThai_@item.MaDDH">
+                                                    <option value="Chưa xác thực">Chưa xác thực</option>
+                                                    <option value="Đang giao hàng">Đang giao hàng</option>
+                                                    <option value="Đã thanh toán">Đã thanh toán</option>
+                                                    <option value="Chưa thanh toán">Chưa thanh toán</option>
+                                                    <option value="Đã huỷ">Đã huỷ</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary" onclick="ViewDH('@item.MaDDH')" data-toggle="modal" data-target="#myModal"><i class="fa fa-eye"></i></button>
+                                                @*<a href="#" id="viewdh" data-toggle="modal" data-target="#myModal"  data-id="@item.MaDDH" style="margin-left: 13px;">*@
+                                            </td>
+                                            <td>
+                                                <button onclick="LuuDDH('@item.MaDDH');" class="btn-primary">Lưu</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th rowspan="1" colspan="1">User Name</th>
+                                        <th rowspan="1" colspan="1">Name</th>
+                                        <th rowspan="1" colspan="1">Address</th>
+                                        <th rowspan="1" colspan="1">Email</th>
+                                        <th rowspan="1" colspan="1">Phone</th>
+                                        <th rowspan="1" colspan="1"></th>
+                                        <th rowspan="1" colspan="1"></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Chi tiết đơn hàng</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <table class="table table-striped table-bordered first dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 162px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;font-weight: bold;">Tên sản phẩm</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 112px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;font-weight: bold;">Hình ảnh</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 112px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;font-weight: bold;">Đơn giá</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 112px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;font-weight: bold;">Số lượng</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 112px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;font-weight: bold;">Thành tiền</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="lstCard"></tbody>
+                </table>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function ViewDH(id) {
+        var lstCard = $('#lstCard');
+        lstCard.html('');
+        console.log(id)
+        $.ajax({
+            url: '/Order/LayCTDH',
+            type: 'GET',
+            dataType: 'json',
+            data: { maDH: id },
+            success: function (result) {
+                if (result.status) {
+                    $.each(result.data, function (index, value) {
+                        var html = `<tr>
+                            <td>${value.Ten}</td>
+                            <td>
+                                <img style="width: 100px; background-color: #f0f0f6; height: 75px;" src="/Content/images/AnhCTSP/${value.Anh}" />
+                            </td>
+                            <td>${value.SoLuong}</td>
+                            <td>${value.DonGia}</td>
+                            <td>${value.TongTien}</td>
+                        </tr>`;
+                        lstCard.append(html);
+                    });
+                }
+            }
+        });
+    };
+    function LuuDDH(id) {
+        //var id = $('#txtid').val();
+        var TrangThai = $('#SLTrangThai_' + id).val();
+        console.log(id);
+        $.ajax({
+            url: '/Order/LuuDH',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                id: id,
+                TrangThai: TrangThai,
+            },
+            success: function (result) {
+                if (result.status) {
+                    console.log(result.status);
+                    alert('Lưu đơn hàng thành công');
+                    window.location.href = '/admin/Order/Index';
+                }
+            }
+        })
+    };
+</script>
+

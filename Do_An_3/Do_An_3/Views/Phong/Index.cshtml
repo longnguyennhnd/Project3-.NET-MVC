@@ -1,0 +1,75 @@
+﻿@using Model.EF
+@model IEnumerable<LoaiSP>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutNoSlide.cshtml";
+}
+<link href="~/Content/css/Phòng-lv2.css" rel="stylesheet" />
+<div class="sanpham mb-2 mt-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <ul class="menutrai">
+                    <li>
+                        <a href="" class="active">phòng ngủ</a>
+                        <ul>
+                            @foreach (var item in Model)
+                            {
+                                <li><a href="@Url.Action("SanPham","SanPham", new {@Maphong=item.MaLoaiPhong, @Maloaisp = item.MaLoaiSP })">@item.TenLoai</a></li>
+                            }
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="Phòng khách.html">phòng khách</a>
+                    </li>
+                    <li>
+                        <a href="Phòng ăn.html">phòng ăn</a>
+                    </li>
+                    <li>
+                        <a href="Phòng học làm việc.html">phòng học & làm việc</a>
+                    </li>
+                    <li>
+                        <a href="Phòng tắm.html">phòng tắm</a>
+                    </li>
+                    <li>
+                        <a href="Nhà bếp.html">nhà bếp</a>
+                    </li>
+                    <li>
+                        <a href="Sảnh lối vào.html">sảnh & lối vào</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- hết col-3 trái -->
+            <div class="col-sm-9">
+                @*<div class="row mb-2 sp">
+                        <div class="col-sm-8 khoi3sp">
+                            <a href="Giường ngủ.html"><img src="IMAGES/Phòng ngủ/giuongngu.jpg" alt="" class="img-fluid" /></a>
+                            <a href="Giường ngủ.html">giường ngủ</a>
+                            <span>(44)</span>
+                        </div>
+                        <div class="col-sm-4 khoi3sp">
+                            <a href="Bàn kê đầu giường.html"><img src="IMAGES/Phòng ngủ/banke.jpg" alt="" class="img-fluid" /></a>
+                            <a href="Bàn kê đầu giường.html">bàn kê đầu giường</a>
+                            <span>(16)</span>
+                        </div>
+                    </div>*@
+                <!-- hết 1 row -->
+                
+                <div class="row mb-2 sp">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-sm-4 khoi3sp">
+                            <a href="@Url.Action("SanPham","SanPham", new {@Maphong=item.MaLoaiPhong, @Maloaisp = item.MaLoaiSP })"><img src="~/Content/images/LoaiSPimg/@item.Hinhanh" alt="" class="img-fluid" /></a>
+                            <a href="@Url.Action("SanPham","SanPham", new {@Maphong=item.MaLoaiPhong, @Maloaisp = item.MaLoaiSP })">@item.TenLoai</a>
+                            <span>(40)</span>
+                        </div>
+                    }
+
+                </div>
+                <!-- hết 1 row -->
+            </div>
+        </div>
+    </div>
+</div>
+

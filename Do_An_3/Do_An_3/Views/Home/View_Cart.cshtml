@@ -1,0 +1,155 @@
+﻿@using Do_An_3.Models
+@model IEnumerable<GioHang>
+
+    @{
+        ViewBag.Title = "View_Cart";
+        Layout = "~/Views/Shared/LayoutNoSlide.cshtml";
+    }
+<link href="~/Content/css/Xem giỏ hàng.css" rel="stylesheet" />
+<style>
+    .tamtinh{
+        border-bottom: 3px solid #444;
+        padding-bottom: 20px;
+    }
+    .tamtinh .tamtinhtong{
+            padding-bottom: 10px;
+    }
+    .tamtinh span {
+            font-weight: 400;
+            color: #58595b;
+            text-transform: uppercase;
+    }
+    .so{
+        float: right;
+        font-weight: bold;
+
+    }
+    .push-sm-8 {
+        left: 57.666667%;
+    }
+    .thanhtoan p {
+        padding: 20px 0;
+        color: #abacad;
+        font-size: 13px;
+        margin-left: 264px;
+
+    }
+</style>
+    <!-- HTML CHO PHẦN ĐƯỜNG DẪN -->
+    <div class="duongdan">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <a href="" class="home"><img src="~/Content/images/Homeimg/home.png" alt="" /></a>
+                    <a href=""><span>giỏ hàng</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HẾT HTML CHO PHẦN ĐƯỜNG DẪN -->
+    <!-- HTML CHO PHẦN DANH SÁCH SẢN PHẨM -->
+    <div class="dssanpham">
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col-sm-12 text-xs-center">
+                    <h3 class="tieude">giỏ hàng</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 mb-3">
+                    <table class="danhsachsp">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>sản phẩm</th>
+                                <th></th>
+                                <th>đơn giá</th>
+                                <th>số lượng</th>
+                                <th>tổng cộng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    <a href="#" class="xoasp" style="color: #ff7675;font-size: 30px;">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <img src="~/Content/images/SanPhamimg/@item.Image" style="width: 120px;" alt="">
+                                </td>
+                                <td>
+                                    <div class="thongtinsp text-xs-center">
+                                        <p>@item.Name</p>
+                                        <p>Polyester Màu be</p>
+                                        <p>D93xW212xH89 cm</p>
+                                    </div>
+                                </td>
+                                <td class="dongia">@(string.Format("{0:#,##0}", item.DonGia))</td>
+                                <td>
+                                    <div class="tanggiamsl">
+                                        <div class="nuttru"><i class="fa fa-minus" aria-hidden="true"></i></div>
+                                        <input type="number" name="" class="soluonghang" value="@item.SL">
+                                        <div class="nutcong"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                                    </div>
+                                </td>
+                                <td class="tongcongtsp">@(string.Format("{0:#,##0}", (item.DonGia * item.SL))) VNĐ</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HẾT HTML CHO PHẦN DANH SÁCH SẢN PHẨM -->
+    <div class="row kthanhtoan mb-2">
+        <div class="col-sm-4 push-sm-8 tongthanhtoan">
+            <div class="tamtinh">
+                <div class="tamtinhtong" style="">
+                    <span>Tạm tính</span>
+                    <span class="so">@(string.Format("{0:#,##0}", ViewBag.tongtien)) VNĐ</span>
+                </div>
+                <div class="tamtinhtong">
+                    <span>GIẢM giá</span>
+                    <span class="so">0 VNĐ</span>
+                </div>
+                <div class="tamtinhtong">
+                    <span>Phí vận chuyển</span>
+                    <span class="so">Miễn Phí</span>
+                </div>
+                
+            </div>
+            <div class="thanhtoan" style="padding-top:20px;">
+                <span>Tổng thanh toán</span>
+                <span id="tonggt">@(string.Format("{0:#,##0}", ViewBag.tongtien)) VNĐ</span>
+                <p>Đã bao gồm thuế VAT</p>
+            </div>
+            <a href="/Home/Checkout" class="nutthanhtoan">
+                Thanh toán ngay
+            </a>
+        </div>
+    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    var nutcongs = document.getElementsByClassName('nutcong');
+    var nuttrus = document.getElementsByClassName('nuttru');
+    var soluongsps = document.getElementsByClassName('soluonghang');
+    for (var i = 0; i < nutcongs.length; i++) {
+        var nutcong = nutcongs[i];
+        nutcong.addEventListener('click', NutCong);
+    }
+    for (var i = 0; i < nuttrus.length; i++) {
+        var nuttru = nuttrus[i];
+        nuttru.addEventListener('click', NutTru);
+    }
+    for (var i = 0; i < soluongsps.length; i++) {
+        var soluongsp = soluongsps[i];
+        soluongsp.addEventListener('change', ThayDoiSL)
+    }
+    //CapNhat();
+})
+</script>
+    <!-- HTML CHO PHẦN GIỎ HÀNG -->

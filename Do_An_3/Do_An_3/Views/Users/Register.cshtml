@@ -1,0 +1,146 @@
+﻿@model Do_An_3.Models.RegisterModel
+@using CaptchaMvc.HtmlHelpers;
+@using CaptchaMvc;
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <link rel="stylesheet" href="~/assets/admin/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="~/assets/admin/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/admin/assets/libs/css/style.css">
+    <link rel="stylesheet" href="~/assets/admin/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="~/assets/admin/assets/vendor/datepicker/tempusdominus-bootstrap-4.css" />
+    <link rel="stylesheet" href="~/assets/admin/assets/vendor/inputmask/css/inputmask.css" />
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .form-control {
+            height: 45px;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("Register", "Users", FormMethod.Post, new { @class = "splash-container" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-1">SIGN UP</h3>
+                <p>Please enter your user information.</p>
+            </div>
+            <div class="form-group" style="color: chartreuse">
+                @ViewBag.Success
+            </div>
+            <div class="card-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @*<input class="form-control form-control-lg" type="text" name="nick" required="" placeholder="Username" autocomplete="off">*@
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control form-control-lg", @placeholder = "UserName", @autocomplete = "off" })
+                </div>
+                <div class="form-group">
+                    @*<input class="form-control form-control-lg" id="pass1" type="password" required="" placeholder="Password">*@
+                    @Html.PasswordFor(model => model.Password, new { @id = "pass1", @class = "form-control form-control-lg", @placeholder = "Password" })
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(model => model.ConfirmPassword, new { @id = "pass1", @class = "form-control form-control-lg", @placeholder = "Confirm password" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @*<input class="form-control form-control-lg" type="text" name="nick" required="" placeholder="Name" autocomplete="off">*@
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control form-control-lg", @placeholder = "Name", @autocomplete = "off" })
+                </div>
+                <div class="form-group">
+                    @*<input type="text" class="form-control email-inputmask" id="email-mask" placeholder="Email">*@
+                    @Html.TextBoxFor(model => model.Email, new { @id = "email-mask", @class = "form-control email-inputmask", @placeholder = "Email" })
+                </div>
+                @*<div class="form-group">
+                        <input class="form-control form-control-lg" type="text" name="nick" required="" placeholder="Verification codes" autocomplete="off">
+                    </div>*@
+                <div class="form-group">
+                    @*<input class="form-control form-control-lg" type="text" name="nick" required="" placeholder="Address" autocomplete="off">*@
+                    @Html.TextBoxFor(model => model.Address, new { @class = "form-control form-control-lg", @placeholder = "Address", @autocomplete = "off" })
+                </div>
+                <div class="form-group">
+                    @*<input type="text" class="form-control phone-inputmask" id="phone-mask" placeholder="">*@
+                    @Html.TextBoxFor(model => model.Phone, new { @id = "phone-mask", @class = "form-control phone-inputmask", @placeholder = "Phone Number" })
+                </div>
+                <div>
+                    @Html.Captcha(5)
+                </div>
+                <h6>
+                    @ViewBag.ThongBaoCaptcha
+                </h6>
+                <div class="form-group pt-2">
+                    <button class="btn btn-block btn-primary" type="submit">Register My Account</button>
+                </div>
+                <div class="form-group row pt-0">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+                        <button class="btn btn-block btn-social btn-facebook " type="button">Facebook</button>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <button class="btn  btn-block btn-social btn-twitter" type="button">Twitter</button>
+                    </div>
+                </div>
+                <div class="card-footer bg-white">
+                    <p>Already member? <a href="#" class="text-secondary">Login Here.</a></p>
+                </div>
+            </div>
+        </div>
+    }
+
+    <script src="~/assets/admin/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/assets/admin/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/assets/admin/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <script src="~/assets/admin/assets/libs/js/main-js.js"></script>
+
+    <script>
+        $(function (e) {
+            "use strict";
+            $(".date-inputmask").inputmask("dd/mm/yyyy"),
+                $(".phone-inputmask").inputmask("(999) 999-9999"),
+                $(".decimal-inputmask").inputmask({
+                    alias: "decimal",
+                    radixPoint: "."
+                }),
+                $(".email-inputmask").inputmask({
+                    mask: "*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@@*{1,20}[*{2,6}][*{1,2}].*{1,}[.*{2,6}][.*{1,2}]",
+                    greedy: !1,
+                    onBeforePaste: function (n, a) {
+                        return (e = e.toLowerCase()).replace("mailto:", "")
+                    },
+                    definitions: {
+                        "*": {
+                            validator: "[0-9A-Za-z!#$%&'*+/=?^_`{|}~/-]",
+                            cardinality: 1,
+                            casing: "lower"
+                        }
+                    }
+                })
+        });
+    </script>
+</body>
+</html>

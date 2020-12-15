@@ -1,0 +1,119 @@
+﻿@using Model.EF
+@model Sanpham
+
+@{
+    ViewBag.Title = "XemChiTiet";
+    Layout = "~/Views/Shared/LayoutNoSlide.cshtml";
+}
+
+<div class="chitietsp mt-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 anhsp">
+                <a href="#">
+                    <img src="@Url.Content("/Content/images/AnhCTSP/"+Model.AnhSP)" alt="@Model.TenSP" class="img-fluid anhht">
+                </a>
+                <div class="cacanhcon">
+                    <img src="@Url.Content("/Content/images/AnhCTSP/"+Model.AnhCTCon1)" alt="@Model.TenSP" class="kickanh">
+                    <img src="@Url.Content("/Content/images/AnhCTSP/"+Model.AnhCTCon2)" alt="@Model.TenSP">
+                </div>
+            </div>
+            <div class="col-sm-6 ttsp">
+                <h3 class="tenspct">@Model.TenSP</h3>
+                <div class="rating">
+                    <img src="~/Content/images/Homeimg/ra2.png" alt="">
+                    <img src="~/Content/images/Homeimg/ra2.png" alt="">
+                    <img src="~/Content/images/Homeimg/ra2.png" alt="">
+                    <img src="~/Content/images/Homeimg/ra2.png" alt="">
+                    <img src="~/Content/images/Homeimg/ra2.png" alt="">
+                </div>
+                <div class="tinhtrang">còn hàng</div>
+                <div class="share">
+                    <span>Chia sẻ trên</span>
+                    <a href="#"><img src="~/Content/images/Homeimg/facebook.png" alt=""></a>
+                    <a href="#"><img src="~/Content/images/Homeimg/twitter.png" alt=""></a>
+                    <a href="#"><img src="~/Content/images/Homeimg/google-plus.png" alt=""></a>
+                    <a href="#"><img src="~/Content/images/Homeimg/pinterest.png" alt=""></a>
+                </div>
+                <h3 class="giaspct">@(string.Format("{0:#,##0}", Model.GiaBan)) VNĐ</h3>
+                @*<div class="thongtin">@ViewBag.ChiTietsp.Mota</div>*@
+                <div class="size">
+                    <span>Size:</span>
+                    <ul>
+                        <li class="kicksize"><a href="#">S</a></li>
+                        <li><a href="#">M</a></li>
+                        <li><a href="#">L</a></li>
+                        <li><a href="#">XL</a></li>
+                        <li><a href="#">XXL</a></li>
+                    </ul>
+                </div>
+                <div class="color">
+                    <span>Color:</span>
+                    <ul>
+                        <li class="kh"><a href="#" class="mau"><i class="fa fa-check-circle" aria-hidden="true"></i></a></li>
+                        <li><a href="#" class="mau"><i class="fa fa-check-circle" aria-hidden="true"></i></a></li>
+                        <li><a href="#" class="mau"><i class="fa fa-check-circle" aria-hidden="true"></i></a></li>
+                        <li><a href="#" class="mau"><i class="fa fa-check-circle" aria-hidden="true"></i></a></li>
+                        <li><a href="#" class="mau"><i class="fa fa-check-circle" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+                <div class="khoimuahang">
+                    <div class="tanggiamsl">
+                        <div class="nuttru"><i class="fa fa-minus" aria-hidden="true"></i></div>
+                        <input type="number" name="" class="soluonghang" value="1">
+                        <div class="nutcong"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                    </div>
+                    <a href="#" class="mua">Mua hàng</a>
+                    <a href="#" class="yeuthich"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                </div>
+                <div class="tonkho">
+                    <h3>Chỉ còn @Model.SoLuong mặt hàng trong kho!</h3>
+                    <div class="thanhsltk">
+                        <div class="thanhsl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row ttchitiet mt-3 pb-3">
+            <div class="col-sm-6 dacdiem">
+                <h3 class="dd">ĐẶC ĐIỂM SẢN PHẨM</h3>
+                <div class="ddinfo">
+                    <div class="ddl">Chất Liệu</div>
+                    <div class="ddr">Polyester</div>
+                </div>
+                <div class="ddinfo">
+                    <div class="ddl">Màu sắc</div>
+                    <div class="ddr">Màu be</div>
+                </div>
+                <div class="ddinfo">
+                    <div class="ddl">Kích thước</div>
+                    <div class="ddr">Sâu 93 cm, Ngang 212 cm, Cao 89 cm</div>
+                </div>
+                <div class="ddinfo">
+                    <div class="ddl">Mã Sản Phẩm</div>
+                    <div class="ddr">1061277</div>
+                </div>
+                <div class="ddinfo">
+                    <div class="ddl">Thiết Kế Bởi</div>
+                    <div class="ddr">@Model.ThietKeBoi</div>
+                </div>
+                <div class="ddinfo">
+                    <div class="ddl">Xuất Xứ</div>
+                    <div class="ddr">USA</div>
+                </div>
+            </div>
+            <div class="col-sm-6 baoquan">
+                <h3 class="bq">HƯỚNG DẪN BẢO QUẢN</h3>
+                <ul style="margin-left: 18px;font-weight: 600; color: #2b3b4e;font-size: 18px;">
+                    <li>Sử dụng dịch vụ vệ sinh sản phẩm định kỳ để bảo quản sản phẩm tốt nhất </li>
+                    <li>Không tẩy trắng </li>
+                    <li>Không sấy nóng </li>
+                    <li>Không ủi sản phẩm</li>
+                    <li>Lau sạch vết bẩn nhỏ bằng miếng bọt biển và nước hoặc dung dịch giặt rửa nhẹ </li>
+                    <li>Lau ngay vết chất lỏng bị đổ để tránh thấm vào sản phẩm</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

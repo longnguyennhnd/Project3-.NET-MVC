@@ -1,0 +1,16 @@
+C:\Users\Long Anh\Desktop\Do_An_3\Model\bin\Debug\Model.dll.config
+C:\Users\Long Anh\Desktop\Do_An_3\Model\bin\Debug\Model.dll
+C:\Users\Long Anh\Desktop\Do_An_3\Model\bin\Debug\Model.pdb
+C:\Users\Long Anh\Desktop\Do_An_3\Model\bin\Debug\EntityFramework.dll
+C:\Users\Long Anh\Desktop\Do_An_3\Model\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Long Anh\Desktop\Do_An_3\Model\bin\Debug\PagedList.dll
+C:\Users\Long Anh\Desktop\Do_An_3\Model\bin\Debug\PagedList.Mvc.dll
+C:\Users\Long Anh\Desktop\Do_An_3\Model\bin\Debug\EntityFramework.xml
+C:\Users\Long Anh\Desktop\Do_An_3\Model\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Long Anh\Desktop\Do_An_3\Model\bin\Debug\PagedList.xml
+C:\Users\Long Anh\Desktop\Do_An_3\Model\bin\Debug\PagedList.Mvc.xml
+C:\Users\Long Anh\Desktop\Do_An_3\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+C:\Users\Long Anh\Desktop\Do_An_3\Model\obj\Debug\Model.csproj.CopyComplete
+C:\Users\Long Anh\Desktop\Do_An_3\Model\obj\Debug\Model.dll
+C:\Users\Long Anh\Desktop\Do_An_3\Model\obj\Debug\Model.pdb
+C:\Users\Long Anh\Desktop\Do_An_3\Model\obj\Debug\Model.csprojAssemblyReference.cache
